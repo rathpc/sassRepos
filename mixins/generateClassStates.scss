@@ -1,0 +1,49 @@
+/* Example usage: 
+    0 == only pseudo state ":"
+    1 == only class state "."
+    2 == both pseudo and class states ":" & "."
+
+    i {
+        color: #000000;
+        @include generateClassStates((active, 0), (hover, 1), (focus, 2)) {
+            color: #757575;
+        }
+    }
+    Output:
+    i { color: #000000; }
+    i:active, i.hover, i:focus, i.focus { color: #757575; }
+*/
+@mixin generateClassStates($states...) {
+  $tempStates: ();
+
+  @each $state in $states {
+    $i: index($states, $state);
+
+    @if nth($state, 2) == 0 {
+      $tempStates: append($tempStates, '&:#{nth($state, 1)}');
+    }
+    @else if nth($state, 2) == 1 {
+      $tempStates: append($tempStates, '&.#{nth($state, 1)}');
+    }
+    @else if nth($state, 2) == 2 {
+      $tempStates: append($tempStates, '&:#{nth($state, 1)}, &.#{nth($state, 1)}');
+    }
+
+    @if $i < length($states) {
+      $tempStates: append($tempStates, ', ');
+    }
+  }
+
+  #{$tempStates} {
+    @content;
+  }
+}
+
+i {
+  margin: 1.25rem 2.5rem;
+  color: #ffffff;
+
+  @include generateClassStates((active, 1), (hover, 2), (focus, 0), (visited, 1)) {
+    color: #757575;
+  }
+}

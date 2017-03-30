@@ -1,0 +1,39 @@
+/* Example usage: 
+    i {
+      margin: 1.25rem 2.5rem;
+      @include breakpoint(tinyphone) {
+        margin: 1rem;
+      }
+    }
+    Output:
+    i { margin: 1.25rem 2.5rem; }
+    @media (max-width: 25em) {
+      i { margin: 1rem; }
+    }
+*/
+$list_Breakpoints:  (miniphone, 20em, max), //320px
+                    (tinyphone, 25em, max), //400px
+                    (phone, 30em, max), //480px
+                    (maxiphone, 37.5em, max), //600px
+                    (microtablet, 37.5625em, min), //601px
+                    (minitablet, 47.9375em, max), //767px
+                    (tablet, 48em, min), //768px
+                    (laptop, 62em, min), //992px
+                    (desktop, 75em, min); //1200px
+
+@mixin breakpoint($class) {
+    @each $breakpoint, $breakpointVal, $breakpointThreshold in $list_Breakpoints {
+        @if $class == $breakpoint {
+            @media (#{$breakpointThreshold}-width: $breakpointVal) {
+                @content;
+            }
+        }
+    }
+}
+
+i {
+  margin: 1.25rem 2.5rem;
+  @include breakpoint(tinyphone) {
+    margin: 1rem;
+  }
+}

@@ -1,0 +1,17 @@
+/* Takes raw number or px value to convert to rem value on a base 10 (62.5%) font size */
+@function rem($size) {
+    $stringSize: inspect($size);
+    $rem: 0;
+
+    @if str-index($stringSize, 'px') {
+        $rem: $size / 10px;
+    } @else {
+        $rem: $size / 10;
+    }
+
+    @if $rem == 0 {
+        @return 0;
+    } @else {
+        @return $rem * 1rem;
+    }
+}

@@ -1,0 +1,76 @@
+/* Originated from http://codepen.io/maxakohler/pen/mAxHz */
+/* Highly modified for efficiency and utilizes rem function found in seperate file */
+@mixin long-shadow($type, $color, $length, $fadeout: false, $skew: false, $direction: right) {
+    $shadow: '';
+
+    @if $fadeout == true {
+        @if ( $skew == true ) and ( $type == box ) {
+            @if $direction == left {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i * -1) + ' ' + rem($i) + ' 0 ' + rem($i * 0.2) + ' ' + rgba($color, 1 - $i / $length) + ',';
+                }
+                $shadow: $shadow + rem($length * -1) + ' ' + rem($length) + ' 0 ' + rem($length * 0.2) + ' ' + rgba($color, 0);
+            }
+            @else {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i) + ' ' + rem($i) + ' 0 ' + rem($i * 0.2) + ' ' + rgba($color, 1 - $i / $length) + ',';
+                }
+                $shadow: $shadow + rem($length) + ' ' + rem($length) + ' 0 ' + rem($length * 0.2) + ' ' + rgba($color, 0);
+            }
+        }
+        @else {
+            @if $direction == left {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i * -1) + ' ' + rem($i) + ' 0 ' + rgba($color, 1 - $i / $length) + ',';
+                }
+                $shadow: $shadow + rem($length * -1) + ' ' + rem($length) + ' 0 ' + rgba($color, 0);
+            }
+            @else {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i) + ' ' + rem($i) + ' 0 ' + rgba($color, 1 - $i / $length) + ',';
+                }
+                $shadow: $shadow + rem($length) + ' ' + rem($length) + ' 0 ' + rgba($color, 0);
+            }
+        }
+    }
+    @else {
+        @if ( $skew == true ) and ( $type == box ) {
+            @if $direction == left {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i * -1) + ' ' + rem($i) + ' 0 ' + rem($i * 0.1) + ' ' + $color + ',';
+                }
+                $shadow: $shadow + rem($length * -1) + ' ' + rem($length) + ' 0 ' + $color;
+            }
+            @else {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i) + ' ' + rem($i) + ' 0 ' + rem($i * 0.1) + ' ' + $color + ',';
+                }
+                $shadow: $shadow + rem($length) + ' ' + rem($length) + ' 0 ' + $color;
+            }
+        }
+        @else {
+            @if $direction == left {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i * -1) + ' ' + rem($i) + ' 0 ' + $color + ',';
+                }
+                $shadow: $shadow + rem($length * -1) + ' ' + rem($length) + ' 0 ' + $color;
+            }
+            @else {
+                @for $i from 0 to $length {
+                    $shadow: $shadow + rem($i) + ' ' + rem($i) + ' 0 ' + $color + ',';
+                }
+                $shadow: $shadow + rem($length) + ' ' + rem($length) + ' 0 ' + $color;
+            }
+        }
+    }
+
+    $shadow: unquote($shadow);
+
+    @if $type == 'box' {
+        box-shadow: $shadow;
+    }
+
+    @if $type == 'text' {
+        text-shadow: $shadow;
+    }
+}

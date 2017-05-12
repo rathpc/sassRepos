@@ -1,14 +1,14 @@
 /* Example usage: 
     i {
-      margin: 1.25rem 2.5rem;
-      @include breakpoint(tinyphone) {
-        margin: 1rem;
-      }
+        margin: 1.25rem 2.5rem;
+        @include breakpoint(tinyphone) {
+            margin: 1rem;
+        }
     }
     Output:
     i { margin: 1.25rem 2.5rem; }
     @media (max-width: 25em) {
-      i { margin: 1rem; }
+        i { margin: 1rem; }
     }
 */
 $list_Breakpoints:  (miniphone, 20em, max), //320px
@@ -32,8 +32,8 @@ $list_Breakpoints:  (miniphone, 20em, max), //320px
 }
 
 i {
-  margin: 1.25rem 2.5rem;
-  @include breakpoint(tinyphone) {
-    margin: 1rem;
-  }
+    margin: 1.25rem 2.5rem;
+    @include breakpoint(tinyphone) {
+        margin: 1rem;
+    }
 }

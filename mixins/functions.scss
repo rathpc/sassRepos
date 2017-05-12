@@ -25,8 +25,7 @@
                 @include breakpoint($breakpoint) {
                     @if $direction == All {
                         padding: 0 !important;
-                    }
-                    @else {
+                    } @else {
                         padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
                     }
                 }

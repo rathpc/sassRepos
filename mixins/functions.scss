@@ -20,12 +20,23 @@
 @each $direction in ('All', '-Top', '-Bottom', '-Left', '-Right') {
     .noPad#{if($direction == 'All', null, str-slice($direction, 2, -1))} {
         padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
-        @each $breakpoint, $breakpointVal, $breakpointThreshold in $list_Breakpoints {
-            &-#{$breakpoint} {
-                @include breakpoint($breakpoint) {
+        @each $breakpoint, $breakpointValMax, $breakpointValMin in $list_Breakpoints {
+            &-#{$breakpoint}-max {
+                @include breakpoint($breakpoint, max) {
                     @if $direction == All {
                         padding: 0 !important;
-                    } @else {
+                    }
+                    @else {
+                        padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
+                    }
+                }
+            }
+            &-#{$breakpoint}-min {
+                @include breakpoint($breakpoint, min) {
+                    @if $direction == All {
+                        padding: 0 !important;
+                    }
+                    @else {
                         padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
                     }
                 }

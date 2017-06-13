@@ -11,24 +11,24 @@
         i { margin: 1rem; }
     }
 */
-$list_Breakpoints:  (miniphone, 20em, 20.0625em), //320px max | 321px min
-                    (tinyphone, 25em, 25.0625em), //400px max | 401px min
-                    (phone, 30em, 30.0625em), //480px max | 481px min
-                    (maxiphone, 37.5em, 37.5625em), //600px max | 601px min
-                    (tablet, 47.9375em, 48em), //767px max | 768px min
-                    (laptop, 61.9375em, 62em), //991px max | 992px min
-                    (desktop, 74.9375em, 75em); //1199px max | 1200px min
+$list_Breakpoints:  (miniphone, (20em, max), (20.0625em, min)), //320px max | 321px min
+                    (tinyphone, (25em, max), (25.0625em, min)), //400px max | 401px min
+                    (phone, (30em, max), (30.0625em, min)), //480px max | 481px min
+                    (maxiphone, (37.5em, max), (37.5625em, min)), //600px max | 601px min
+                    (tablet, (47.9375em, max), (48em, min)), //767px max | 768px min
+                    (laptop, (61.9375em, max), (62em, min)), //991px max | 992px min
+                    (desktop, (74.9375em, max), (75em, min)); //1199px max | 1200px min
 
 @mixin breakpoint($class, $threshold) {
     @each $breakpoint, $breakpointValMax, $breakpointValMin in $list_Breakpoints {
         @if $class == $breakpoint {
-            @if $threshold == 'max' {
-                @media (max-width: $breakpointValMax) {
+            @if $threshold == nth($breakpointValMax, 2) {
+                @media (#{nth($breakpointValMax, 2)}-width: nth($breakpointValMax, 1)) {
                     @content;
                 }
             }
-            @if $threshold == 'min' {
-                @media (min-width: $breakpointValMin) {
+            @if $threshold == nth($breakpointValMin, 2) {
+                @media (#{nth($breakpointValMin, 2)}-width: nth($breakpointValMin, 1)) {
                     @content;
                 }
             }

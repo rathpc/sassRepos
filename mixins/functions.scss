@@ -21,23 +21,15 @@
     .noPad#{if($direction == 'All', null, str-slice($direction, 2, -1))} {
         padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
         @each $breakpoint, $breakpointValMax, $breakpointValMin in $list_Breakpoints {
-            &-#{$breakpoint}-max {
-                @include breakpoint($breakpoint, max) {
-                    @if $direction == All {
-                        padding: 0 !important;
-                    }
-                    @else {
-                        padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
-                    }
-                }
-            }
-            &-#{$breakpoint}-min {
-                @include breakpoint($breakpoint, min) {
-                    @if $direction == All {
-                        padding: 0 !important;
-                    }
-                    @else {
-                        padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
+            @each $threshold in (nth($breakpointValMax, 2), nth($breakpointValMin, 2)) {
+                &-#{$breakpoint}-#{$threshold} {
+                    @include breakpoint($breakpoint, $threshold) {
+                        @if $direction == All {
+                            padding: 0 !important;
+                        }
+                        @else {
+                            padding#{if($direction == 'All', null, to-lower-case($direction))}: 0 !important;
+                        }
                     }
                 }
             }

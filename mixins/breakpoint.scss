@@ -1,7 +1,7 @@
 /* Example usage: 
     i {
         margin: 1.25rem 2.5rem;
-        @include breakpoint(tinyphone) {
+        @include breakpoint(tinyphone, max) {
             margin: 1rem;
         }
     }
